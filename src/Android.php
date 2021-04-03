@@ -165,7 +165,7 @@ class Android
      *
      * @throws \Exception
      */
-    public function sendAndroidCustomizedcast(array $params = [])
+    public function sendAndroidCustomizedcast(array $params = [], array $extra = [])
     {
         try {
             $customizedcast = new AndroidCustomizedcast();
@@ -176,6 +176,11 @@ class Android
 
             foreach ($params as $key => $val) {
                 $customizedcast->setPredefinedKeyValue($key, $val);
+            }
+            if (count($extra)) {
+                foreach ($extra as $key => $val) {
+                    $customizedcast->setExtraField($key, $val);
+                }
             }
 
             return $customizedcast->send();
