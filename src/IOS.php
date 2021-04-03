@@ -181,7 +181,7 @@ class IOS
      *
      * @throws \Exception
      */
-    public function sendIOSCustomizedcast(array $params = [])
+    public function sendIOSCustomizedcast(array $params = [], array $customized = [])
     {
         try {
             $customizedcast = new IOSCustomizedcast();
@@ -195,6 +195,11 @@ class IOS
             // use file_id to send customized notification.
             foreach ($params as $key => $val) {
                 $customizedcast->setPredefinedKeyValue($key, $val);
+            }
+            if (count($customized)) {
+                foreach ($customized as $key => $val) {
+                    $customizedcast->setCustomizedField($key, $val);
+                }
             }
 
             return $customizedcast->send();
